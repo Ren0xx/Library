@@ -5,6 +5,7 @@ function book(name, author, pages,  haveRead) {
     this.author = author;
     this.pages = pages;
     this.haveRead = haveRead;
+    this.toDelete = '';
 }
 
 function addBookToLibrary(name, author, pages,  haveRead) {
@@ -13,13 +14,24 @@ function addBookToLibrary(name, author, pages,  haveRead) {
 
     const mainTable = document.querySelector('.main-table');
     const tableRow = document.createElement('tr');
+    tableRow.dataset.id = myLibrary.length;
     mainTable.append(tableRow);
 
-    for (i = 0; i < Object.keys(newBook).length; i++){
+    for (i = 0; i < Object.keys(newBook).length - 1; i++){
         const tableData = document.createElement('td');
+
         tableData.textContent = Object.values(newBook)[i];
         tableRow.append(tableData);
     }
+
+    //Adding delete button
+    const tableData = document.createElement('td');
+    const button = document.createElement('button');
+    button.textContent = 'Delete';
+    button.classList = 'deleteButton';
+    tableData.append(button);
+    tableRow.append(tableData);
+
 }
 
 function getFormValues(){
@@ -37,8 +49,8 @@ showFormButton.addEventListener("click", () => {
 const addBookButton = document.querySelector('.add-book-button');
 addBookButton.addEventListener("click", () => {
     const values = getFormValues();
-    values[3] = (document.querySelector('#read').checked)? "Yes" : "No";
-    addBookToLibrary(values[0], values[1], values[2], values[3]);
+    values[3] = (document.querySelector('#read').checked) ? "Yes" : "No";
+    addBookToLibrary(...values);
 
     const formValues = document.querySelectorAll('.book-form input');
     for (let i = 0; i < formValues.length; i++) {
@@ -47,9 +59,14 @@ addBookButton.addEventListener("click", () => {
     form.hidden = true;
 
 })
+const mainTable = document.querySelector('.main-table');
+mainTable.addEventListener('click', (e) =>{
+    if (e.target.className === 'deleteButton'){
+        e.target.parentNode.parentNode.remove();
+    }
+})
+
 //Adding few books
 addBookToLibrary("By the Blade","Tim Russel", 255, "No");
 addBookToLibrary("The Hobbit","J.R.R Tolkien", 299, "Yes");
 addBookToLibrary("The Witcher","Andrzej Sapkowski ", 359, "Yes");
-
-
