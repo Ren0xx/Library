@@ -11,13 +11,14 @@
     <body>
 
         <div class="container">
+            <h1>Library</h1>
             <table class="main-table">
                  <tr>
                     <th>Name</th>
                     <th>Author</th>
                     <th>Pages </th>
                     <th>Read</th>
-                    <th>Delete</th>
+                    <th>Remove</th>
                 </tr>   
                
             </table>
@@ -28,12 +29,12 @@
                 <label for="Author">Author</label><br>
                 <input type="text" id="author" name="author"><br>
                 <label for="Pages">Pages</label><br>
-                <input type="text" id="pages" name="pages"><br>
+                <input type="number" id="pages" name="pages"><br>
                 <label for="read">Read</label><br>
                 <input type="checkbox" id="read" name="read" value="yes" ><br>
             </form>
                 <button class="add-book-button" type="text" >Add book to the library</button>
-
+            <h3 id="error-heading" hidden>One or many fields are empty!</h3>
         </div>
         <script src="script.js" async defer></script>
     </body>
